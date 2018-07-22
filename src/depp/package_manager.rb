@@ -20,7 +20,7 @@ module Depp
     # If this isn't the case, an exception is thrown.
     def valid_implementation!
       required_methods = [
-        :__package_by_name__,
+        :__packages_by_name__,
         :__package_status__,
         :__install_package__,
         :__present__,
@@ -54,10 +54,10 @@ module Depp
     # objects, one for each available version.
     # If the package does not exist, the array is empty.
     # +name+::The name of the package.
-    def package_by_name(name)
+    def packages_by_name(name)
       valid_implementation!
       present!
-      __package_by_name__(name, version)
+      __packages_by_name__(name, version)
     end
 
     # Gets the status of a package on the local machine, returning a
