@@ -3,13 +3,17 @@
 module Depp
   # The state of a package on the local machine.
   class PackageStatus
-    def initialize(installed_version, package_manager)
+    def initialize(name, installed_version, package_manager)
+      @name = name
       @installed_version = installed_version
       @package_manager = package_manager
     end
 
+    # The name of this package.
+    attr_reader :name
+
     # The version of this package which is installed, or nil if it is not.
-    attr_accessor :installed_version
+    attr_reader :installed_version
 
     # The +PackageManager+ which this package belongs to.
     attr_reader :package_manager
