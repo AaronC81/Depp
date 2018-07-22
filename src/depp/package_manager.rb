@@ -57,7 +57,7 @@ module Depp
     def packages_by_name(name)
       valid_implementation!
       present!
-      __packages_by_name__(name, version)
+      __packages_by_name__(name)
     end
 
     # Gets the status of a package on the local machine, returning a
