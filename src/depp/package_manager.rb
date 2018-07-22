@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 require 'depp/errors/package_manager_error'
 
 module Depp
   # An abstract class for a package manager available to Depp.
   # A subclass of +PackageManager+ is expected to implement:
   #
-  #   - +__package_info__(name, version)+
+  #   - +__packages_by_name__(name)+
   #   - +__package_status__(package)+
   #   - +__install_package__(package)+
   #   - +__present__()+
@@ -18,7 +20,7 @@ module Depp
     # If this isn't the case, an exception is thrown.
     def valid_implementation!
       required_methods = [
-        :__package_info__,
+        :__package_by_name__,
         :__package_status__,
         :__install_package__,
         :__present__,
@@ -48,14 +50,14 @@ module Depp
       true
     end
 
-    # Gets information about a package, returning a +PackageInfo+ object.
-    # If the package does not exist, returns nil.
+    # Gets information about a package, returning an +Array+ of +PackageInfo+
+    # objects, one for each available version.
+    # If the package does not exist, the array is empty.
     # +name+::The name of the package.
-    # +version+:: The version of the package, default latest.
-    def package_info(name, version='latest')
+    def package_by_name(name)
       valid_implementation!
       present!
-      __package_info__(name, version)
+      __package_by_name__(name, version)
     end
 
     # Gets the status of a package on the local machine, returning a
@@ -81,6 +83,27 @@ module Depp
       valid_implementation!
       present!
       __package_dependencies__(package)
+    end
+
+    # A convenience method which runs a command with open3 and returns the
+    # result.
+    # Returns an +Array+ like +[stdout, stderr, status]+.
+    # +command+::The command to run.
+    def run_command(command)
+      Open3.capture3(command)
+    end
+
+    # A convenience method which runs a command with open3 and returns the
+    # result.
+    # Returns an +Array+ like +[stdout, stderr]+. If the status code is not
+    # zero, an exception is thrown.
+    # +command+::The command to run.
+    def run_command!(command)
+      stdout, stderr, status = run_command(command)
+      raise PackageManagerError,
+        "command '#{command}' failed" unless status == 0
+
+      [stdout, stderr]
     end
   end
 end
