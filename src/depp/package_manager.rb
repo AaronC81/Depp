@@ -6,11 +6,11 @@ module Depp
   # An abstract class for a package manager available to Depp.
   # A subclass of +PackageManager+ is expected to implement:
   #
-  #   - +__package_info__+
-  #   - +__package_status__+
-  #   - +__install_package__+
-  #   - +__present__+
-  #   - +__package_dependencies__+
+  #   - +__package_info__(name, version)+
+  #   - +__package_status__(package)+
+  #   - +__install_package__(package)+
+  #   - +__present__()+
+  #   - +__package_dependencies__(package)+
   #
   class PackageManager
     # Checks that the current package manager is implemented in a valid manner;
@@ -60,19 +60,19 @@ module Depp
 
     # Gets the status of a package on the local machine, returning a
     # +PackageStatus+ object.
-    # +name+::The name of the package.
-    def package_status(name)
+    # +package+::A +PackageInfo+ object representing this package.
+    def package_status(package)
       valid_implementation!
       present!
-      __package_status__(name)  
+      __package_status__(package)  
     end
 
     # Installs a package to the local machine.
-    # +package+:: A +PackageInfo+ object representing this package.
-    def install_package(name)
+    # +package+::A +PackageInfo+ object representing this package.
+    def install_package(package)
       valid_implementation!
       present!
-      __install_package__(name)
+      __install_package__(package)
     end
 
     # Gets the dependencies for a given package, as an +Array+ of +PackageInfo+
