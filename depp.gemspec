@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name          = 'depp'
   s.version       = '1.0.0'
   s.date          = '2018-07-22'
-  s.summary       = "Talk to other languages' package managers"
+  s.summary       = 'A dependency-checking system for many package managers'
   s.authors       = ['Aaron Christiansen']
   s.email         = 'aaronc20000@gmail.com'
   s.files         = Dir.glob('src/**/*')
