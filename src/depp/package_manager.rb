@@ -10,6 +10,7 @@ module Depp
   #   - +__package_status__+
   #   - +__install_package__+
   #   - +__present__+
+  #   - +__package_dependencies__+
   #
   class PackageManager
     # Checks that the current package manager is implemented in a valid manner;
@@ -20,7 +21,8 @@ module Depp
         :__package_info__,
         :__package_status__,
         :__install_package__,
-        :__present__
+        :__present__,
+        :__package_dependencies__
       ]
 
       required_methods.each do |required_method|
@@ -71,6 +73,14 @@ module Depp
       valid_implementation!
       present!
       __install_package__(name)
+    end
+
+    # Gets the dependencies for a given package, as an +Array+ of +PackageInfo+
+    # objects.
+    def package_dependencies(package)
+      valid_implementation!
+      present!
+      __package_dependencies__(package)
     end
   end
 end
