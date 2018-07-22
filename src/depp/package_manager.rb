@@ -9,7 +9,7 @@ module Depp
   # A subclass of +PackageManager+ is expected to implement:
   #
   #   - +__packages_by_name__(name)+
-  #   - +__package_status__(package)+
+  #   - +__package_status__(name)+
   #   - +__install_package__(package)+
   #   - +__present__()+
   #
@@ -62,11 +62,11 @@ module Depp
 
     # Gets the status of a package on the local machine, returning a
     # +PackageStatus+ object.
-    # +package+::A +PackageInfo+ object representing this package.
-    def package_status(package)
+    # +name+::The name of the package.
+    def package_status(name)
       valid_implementation!
       present!
-      __package_status__(package)  
+      __package_status__(name)  
     end
 
     # Installs a package to the local machine.
