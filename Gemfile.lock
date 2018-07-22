@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    depp (1.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  depp!
+
+BUNDLED WITH
+   1.14.6
