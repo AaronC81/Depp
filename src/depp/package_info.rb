@@ -23,11 +23,19 @@ module Depp
     # This might be fetched from the package manager the first time it is
     # accessed.
     def dependencies
-      if dependencies.nil?
+      if @dependencies.nil?
         @dependencies = package_manager.package_dependencies(self)
       end
 
       @dependencies
+    end
+
+    def inspect
+      result = "#<PackageInfo #{name} #{version}, #{package_manager}"
+      result += @dependencies.nil? ? ", deps not set>"
+        : ", #{dependencies.length} deps>"
+
+      result
     end
   end
 end
