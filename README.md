@@ -44,3 +44,9 @@ else
   puts 'Done!'
 end
 ```
+
+## Supported Languages and Roadmap
+ - [X] Python (pip)
+ - [ ] Ruby (gem)
+ - [ ] JavaScript (npm)
+ - [ ] Rust (cargo)
