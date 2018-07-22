@@ -12,8 +12,9 @@ module Depp
   #   - +__package_status__(package)+
   #   - +__install_package__(package)+
   #   - +__present__()+
-  #   - +__package_dependencies__(package)+
   #
+  # A package manager may also implement +__package_dependencies__(package)+,
+  # though this is not required.
   class PackageManager
     # Checks that the current package manager is implemented in a valid manner;
     # that is, any required methods have been implemented by the subclass.
@@ -23,8 +24,7 @@ module Depp
         :__packages_by_name__,
         :__package_status__,
         :__install_package__,
-        :__present__,
-        :__package_dependencies__
+        :__present__
       ]
 
       required_methods.each do |required_method|
